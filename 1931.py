@@ -1,15 +1,22 @@
 # 그리디 알고리즘
-# 회의실 배정
-# 한개의 회의실. 여러 회의의 시작시간과 끝나는시간이 주어짐.
-# 겹치지 않으면서 회의실을 사용할 수 있는 회의의 최대 개수는?
-# (시작 끝 시간이 같을 수도 있다.)
+# 가능한 많은 구간을 선택하는 문제
+# 끝나는 시간을 기준으로 나열, 제일 빨리 끝나는 회의를 선택 그 시간 이후의 회의에 대해 다시 또 나열 후 선택
 import sys
 
 n = int(sys.stdin.readline())
-a = []
+meetings = []
 for _ in range(n):
-    a.append(list(map(int, sys.stdin.readline().split())))
-# print(a)
-# n = 11
-# a = [[1, 4], [3, 5], [0, 6], [5, 7], [3, 8], [5, 9], [6, 10], [8, 11], [8, 12], [2, 13], [12, 14]]
-``
+    meetings.append(list(map(int, sys.stdin.readline().split())))
+
+# 값이 같을 때를 주의해서 기준을 x[1], x[0] 두개 잡아준다.
+sorted_meetings = sorted(meetings, key = lambda x: (x[1], x[0]))
+
+result = [sorted_meetings[0]]
+criteria = sorted_meetings[0][1]
+for i in range(1,n):
+    # 기준에 대해서 찾아서 기준바꾸고 배열에 추가, 기준 다음 원소부터 다시 찾기
+    if (criteria <= sorted_meetings[i][0]):
+        criteria = sorted_meetings[i][1]
+        result.append(sorted_meetings[i])
+
+print(len(result))

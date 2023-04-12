@@ -1,4 +1,5 @@
-# 구간합구하기 5
+# 부분구간합
+# 2차원에서 구간합을 구하는 문제
 import sys
 
 n, m = map(int, sys.stdin.readline().split())
