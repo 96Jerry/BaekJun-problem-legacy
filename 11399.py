@@ -6,5 +6,8 @@ import sys
 n = int(sys.stdin.readline())
 a = list(map(int, sys.stdin.readline().split()))
 
-print(n)
-print(a)
+a.sort()
+sum = 0
+for i in range(1,n+1):
+    sum += i * a[n-i]
+print(sum)
