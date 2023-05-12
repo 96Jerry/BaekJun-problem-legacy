@@ -1,37 +1,42 @@
-# 최단경로
-# 다익스트라 알고리즘을 배우는 문제
-import sys
+# 다익스트라 알고리즘
+# 최단경로 구하기
+# 가중치가 있는 그래프
 import heapq
-input = sys.stdin.readline
-INF = int(1e9)
+import sys
 
-def dijkstra(start, graph, distance):
+input = sys.stdin.readline
+# graph = (u,v,w) => u 에서 v 로 가는 가중치가 w인 간선이 존재
+v, e = map(int, input().split())
+k = int(input())
+# 입력을 받아서 그 값의 첫번째 두번째 값에 대해 graph[i]  = j, graph[j] = i 그리고 세번째 값을 넣어준다. 반복.
+graph = [[] for _ in range(v + 1)]
+for _ in range(e):
+    a = list(map(int, input().split()))
+    graph[a[0]].append((a[1], a[2]))
+    # graph[a[1]].append((a[0], a[2])) # 방향성이 있는 그래프이기 때문에 한번만 해준다.
+INF = float("inf")
+answer = [INF] * (v + 1)
+
+
+def solution(graph, start, answer):
+    answer[start] = 0
     q = []
     heapq.heappush(q, (0, start))
-    distance[start] = 0
     while q:
-        dist, now = heapq.heappop(q)
-        if distance[now] < dist:
+        dist, point = heapq.heappop(q)
+        if answer[point] < dist:
             continue
-        for i in graph[now]:
+        for i in graph[point]:
             cost = dist + i[1]
-            if cost < distance[i[0]]:
-                distance[i[0]] = cost
+            if cost < answer[i[0]]:
+                answer[i[0]] = cost
                 heapq.heappush(q, (cost, i[0]))
-    
-V, E = map(int, input().split())
-K = int(input())
-graph = [[]for _ in range(V+1)]
-distance = [INF]*(V+1)
 
-for _ in range(E):
-    u, v, w = map(int, input().split())
-    graph[u].append((v,w))
 
-dijkstra(K, graph, distance)
+solution(graph, k, answer)
 
-for i in range(1, V+1):
-    if distance[i] == INF:
+for i in range(1, v + 1):
+    if answer[i] == INF:
         print("INF")
     else:
-        print(distance[i])
+        print(answer[i])
