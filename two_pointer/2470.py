@@ -1,19 +1,20 @@
+# n : 전체 용액의 수
 n = int(input())
-solutions = list(map(int, input().split()))
-solutions.sort()
+nums = list(map(int, input().split()))
+nums.sort()
 
-left = 0
-right = n - 1
-min_value = abs(solutions[left] + solutions[right])
-result = (solutions[left], solutions[right])
+left, right = 0, n - 1
+min_value = nums[left] + nums[right]
+result = [nums[left], nums[right]]
 
 while left < right:
-    temp = solutions[left] + solutions[right]
-    if abs(temp) < min_value:
-        min_value = abs(temp)
-        result = (solutions[left], solutions[right])
+    temp = nums[left] + nums[right]
+    if abs(temp) < abs(min_value):
+        min_value = temp
+        result = [nums[left], nums[right]]
         if temp == 0:
             break
+
     if temp < 0:
         left += 1
     else:
