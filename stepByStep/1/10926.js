@@ -4,4 +4,4 @@ const input = fs.readFileSync(filePath).toString().trim()
 
 console.log(input + '??!')
 
-// github 설정 오류로 잔디가 심어지지 않는 문제 발생
+// 원인은 유저 이름일 것으로 판단
