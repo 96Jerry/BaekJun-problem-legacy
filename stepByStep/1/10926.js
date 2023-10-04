@@ -4,4 +4,4 @@ const input = fs.readFileSync(filePath).toString().trim()
 
 console.log(input + '??!')
 
-// 원인은 유저 이름일 것으로 판단
+// 이메일이었던것으로 예상 변경
